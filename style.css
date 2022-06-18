@@ -1,0 +1,30 @@
+body {
+    width: 100%;
+    background-color: #EEF9BF;
+    font-family: 'Roboto', sans-serif;
+}
+.titulo {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.titulo h1 {
+font-weight: 700;
+font-size: 56px;
+line-height: 66px;
+letter-spacing: -0.004em;
+color: #75B79E;
+text-align: center;
+text-transform: uppercase;
+}
+
+@media (max-width: 614px) {
+    .titulo h1 {
+        font-size: 36px;
+        line-height: 42px;
+        letter-spacing: -0.004em;
+    }
+}
