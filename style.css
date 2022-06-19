@@ -36,9 +36,15 @@ text-transform: uppercase;
     border: 1px solid #99CEA8;
     border-radius: 5px;
     margin: 17px;
+    cursor: pointer;
+    transition: transform 600ms;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.card.front-face {
+    transform: rotateY(180deg);    
 }
 .card img {
     width: 100px;
