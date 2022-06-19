@@ -1,6 +1,8 @@
 let manyCards = prompt("Com quantas cartas deseja jogar?\n(Escolha um nº entre 4 a 14)");
 const cardList = ["card1", "card2", "card3", "card4", "card5", "card6", "card7"];
 const gameCardList = [];
+let cardsFlipped = false;
+let movements = 0;
 
 checkNumber(manyCards);
 
@@ -22,15 +24,24 @@ function startGame (numberOfCards) {
         gameCardList.push(cardList[i]);
     }
     gameCardList.sort(scramble);
-    //alert(gameCardList);
     const gameZone = document.querySelector(".game-zone");
     for (let j = 0; j < gameCardList.length; j++) {
         gameZone.innerHTML += 
-        `<div class="card back-face" onclick="compareCards(this, ${gameCardList[j]})">
+        `<div class="card back-face ${gameCardList[j]}" onclick="compareCards(this, ${j});">
             <img class="back-face" src="./midia/parrot-card-game/card-backface.png" alt="">
             <img class="front-face" src="./midia/parrot-card-game/${gameCardList[j]}.gif" alt="">
-        </div>`;
+        </div>`
     }
+}
+function compareCards(cardState, position) {
+    cardType = gameCardList[position];
+    if ((cardState == document.querySelector(`.card.back-face.${cardType}`)) && (cardsFlipped == false)) {
+        cardState.classList.remove("back-face");
+        cardState.classList.add("front-face");
+        cardsFlipped = true;
+        movements++;
+    }
+    //alert(cardType);
 }
 function scramble() { 
 	return Math.random() - 0.5; 

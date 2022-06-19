@@ -44,6 +44,9 @@ text-transform: uppercase;
     width: 100px;
     height: 100px;
 }
+.out-of-game {
+    display: none;
+}
 .card.back-face .front-face {
     display: none;
 }
