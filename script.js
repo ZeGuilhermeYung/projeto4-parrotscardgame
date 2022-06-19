@@ -10,7 +10,6 @@ checkNumber(manyCards);
 function checkNumber(num) {
     num = Number(num);
     if ((num >= 4) && (num <= 14) && (num % 2 == 0)) {
-        //alert("deu certo!");
         startGame(num);
     } else {
         num = prompt("Com quantas cartas deseja jogar?\n(Escolha um nº entre 4 a 14)");
@@ -43,15 +42,19 @@ function scramble() {
 function flipCards(cardState, position) {
     cardType = gameCardList[position];
     if ((cardState == document.querySelector(`.card.back-face.${cardType}.pos${position}`)) && (firstCardFlip == false)) {
+        setTimeout(() => {
         cardState.classList.remove("back-face");
         cardState.classList.add("front-face");
+        }, 100)
         firstCardFlip = true;
         movements++;
         firstCardType = cardType;
         firstCardPosition = position;
     } else if ((cardState == document.querySelector(`.card.back-face.${cardType}.pos${position}`)) && (firstCardFlip == true)){
-        cardState.classList.remove("back-face");
-        cardState.classList.add("front-face");
+        setTimeout(() => {
+            cardState.classList.remove("back-face");
+            cardState.classList.add("front-face");
+            }, 100)
         movements++;
         secondCardType = cardType;
         secondCardPosition = position;
@@ -67,13 +70,17 @@ function compareCards(firstCard, secondCard, firstPosition, secondPosition) {
             finishGame();
         }
     } else {
-        document.querySelector(`.card.front-face.${firstCard}.pos${firstPosition}`).classList.remove("front-face");
-        document.querySelector(`.card.${firstCard}.pos${firstPosition}`).classList.add("back-face");
-        document.querySelector(`.card.front-face.${secondCard}.pos${secondPosition}`).classList.remove("front-face");
-        document.querySelector(`.card.${secondCard}.pos${secondPosition}`).classList.add("back-face");
+        setTimeout(() => {
+            document.querySelector(`.card.front-face.${firstCard}.pos${firstPosition}`).classList.remove("front-face");
+            document.querySelector(`.card.${firstCard}.pos${firstPosition}`).classList.add("back-face");
+            document.querySelector(`.card.front-face.${secondCard}.pos${secondPosition}`).classList.remove("front-face");
+            document.querySelector(`.card.${secondCard}.pos${secondPosition}`).classList.add("back-face");
+        }, 1000)
     }
 }
 
 function finishGame() {
+    setTimeout(() => {
     alert(`Você ganhou em ${movements} jogadas!`);
+    }, 500)
 }
