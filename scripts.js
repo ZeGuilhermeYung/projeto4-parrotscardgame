@@ -22,7 +22,15 @@ function startGame (numberOfCards) {
         gameCardList.push(cardList[i]);
     }
     gameCardList.sort(scramble);
-    alert(gameCardList);
+    //alert(gameCardList);
+    const gameZone = document.querySelector(".game-zone");
+    for (let j = 0; j < gameCardList.length; j++) {
+        gameZone.innerHTML += 
+        `<div class="card back-face" onclick="compareCards(this, ${gameCardList[j]})">
+            <img class="back-face" src="./midia/parrot-card-game/card-backface.png" alt="">
+            <img class="front-face" src="./midia/parrot-card-game/${gameCardList[j]}.gif" alt="">
+        </div>`;
+    }
 }
 function scramble() { 
 	return Math.random() - 0.5; 
