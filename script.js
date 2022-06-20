@@ -1,6 +1,6 @@
 let manyCards = prompt("Com quantas cartas deseja jogar?\n(Escolha um nº entre 4 a 14)");
 const cardList = ["card1", "card2", "card3", "card4", "card5", "card6", "card7"];
-const gameCardList = [];
+let gameCardList = [];
 let firstCardFlip = false;
 let movements = 0;
 let countdownFinishGame = 0;
@@ -20,8 +20,7 @@ function checkNumber(num) {
 function startGame (numberOfCards) {
     cardList.sort(scramble);
     for (let i = 0; i < numberOfCards/2; i++) {
-        gameCardList.push(cardList[i]);
-        gameCardList.push(cardList[i]);
+        gameCardList.push(cardList[i], cardList[i]);
         countdownFinishGame = gameCardList.length / 2;
     }
     gameCardList.sort(scramble);
@@ -50,8 +49,8 @@ function clickCards(cardState, position) {
         flipCards(cardState);
         secondCardType = cardType;
         secondCardPosition = position;
-        compareCards(firstCardType, secondCardType, firstCardPosition, secondCardPosition);
         firstCardFlip = false;
+        compareCards(firstCardType, secondCardType, firstCardPosition, secondCardPosition);
     }
 }
 
@@ -85,5 +84,23 @@ function compareCards(firstCard, secondCard, firstPosition, secondPosition) {
 function finishGame() {
     setTimeout(() => {
     alert(`Você ganhou em ${movements} jogadas!`);
+    askStartNewGame();
     }, 300)
+    
+}
+function askStartNewGame(){
+    question = prompt("Deseja reiniciar a partida?\n(Digite 'sim' ou 'não')");
+    if (question === "sim") {
+        for (let k = 0; k < gameCardList.length; k++) {
+            document.querySelector(`.card.pos${k}`).remove();
+        }
+        gameCardList = [];
+        movements = 0;
+        manyCards = prompt("Com quantas cartas deseja jogar?\n(Escolha um nº entre 4 a 14)");
+        checkNumber(manyCards);
+    } else if (question === "não") {
+        alert("Obrigado pela participação!");
+    } else {
+        askStartNewGame();
+    }
 }
