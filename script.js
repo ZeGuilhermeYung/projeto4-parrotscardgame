@@ -69,6 +69,7 @@ function flipCards(cardToFlip) {
         cardToFlip.classList.add("front-face");
         }, 200)
     movements++;
+    document.querySelector(".movements").innerHTML = `${movements} jogadas`;
 }
 
 function compareCards(firstCard, secondCard, firstPosition, secondPosition) {
@@ -103,31 +104,31 @@ function finishGame() {
 }
         
 function timer() {
-        document.querySelector(".timer .seconds").innerHTML = seconds;
-        document.querySelector(".timer .seconds").innerHTML = centiseconds;
+        document.querySelector(".timer-movements .seconds").innerHTML = seconds;
+        document.querySelector(".timer-movements .seconds").innerHTML = centiseconds;
         centisecondsInterval = setInterval(incrementTimer, 10);
 }
 
 function incrementTimer() {
     centiseconds++;
     if (seconds < 1) {
-        document.querySelector(".timer .seconds").innerHTML = `00.`;
+        document.querySelector(".timer-movements .seconds").innerHTML = `00.`;
     }
     if ((countdownFinishGame == 0) && (movements >= 4)) {
-        finishCentiseconds = document.querySelector(".timer .centiseconds").innerHTML;
-        finishSeconds = document.querySelector(".timer .seconds").innerHTML;
+        finishCentiseconds = document.querySelector(".timer-movements .centiseconds").innerHTML;
+        finishSeconds = document.querySelector(".timer-movements .seconds").innerHTML;
         clearInterval(timerInterval);
     } else if (centiseconds < 10) {
-        document.querySelector(".timer .centiseconds").innerHTML = `0${centiseconds}s`;
+        document.querySelector(".timer-movements .centiseconds").innerHTML = `0${centiseconds}s`;
     } else if (centiseconds < 100) {
-        document.querySelector(".timer .centiseconds").innerHTML = `${centiseconds}s`;
+        document.querySelector(".timer-movements .centiseconds").innerHTML = `${centiseconds}s`;
     } else if (centiseconds == 100) {
         centiseconds = 0;
         seconds++;
         if (seconds < 10){
-            document.querySelector(".timer .seconds").innerHTML = `0${seconds}.`;
+            document.querySelector(".timer-movements .seconds").innerHTML = `0${seconds}.`;
         } else {
-            document.querySelector(".timer .seconds").innerHTML = `${seconds}.`;
+            document.querySelector(".timer-movements .seconds").innerHTML = `${seconds}.`;
         }
     }
 }
@@ -142,6 +143,7 @@ function askStartNewGame(){
         movements = 0;
         seconds = 0;
         centiseconds = 0;
+        document.querySelector(".movements").innerHTML = `${movements} jogadas`;
         manyCards = prompt("Com quantas cartas deseja jogar?\n(Escolha um nº entre 4 a 14)");
         checkNumber(manyCards);
     } else if (question === "não") {

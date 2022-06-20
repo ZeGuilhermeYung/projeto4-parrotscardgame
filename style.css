@@ -7,8 +7,8 @@ body {
     justify-content: center;
     align-items: center;
 }
-.timer {
-    width: 150px;
+.timer-movements {
+    width: 200px;
     height: 40px;
     background-color: #A7E9AF;
     color: #75B79E;
@@ -18,6 +18,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.movements {
+    margin-right: 20px;
 }
 .title {
     width: 100%;
