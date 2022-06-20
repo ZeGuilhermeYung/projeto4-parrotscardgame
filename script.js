@@ -28,7 +28,7 @@ function startGame (numberOfCards) {
     const gameZone = document.querySelector(".game-zone");
     for (let j = 0; j < gameCardList.length; j++) {
         gameZone.innerHTML += 
-        `<div class="card back-face ${gameCardList[j]} pos${j}" onclick="flipCards(this, ${j});">
+        `<div class="card back-face ${gameCardList[j]} pos${j}" onclick="clickCards(this, ${j});">
             <img class="back-face" src="./midia/parrot-card-game/card-backface.png" alt="">
             <img class="front-face" src="./midia/parrot-card-game/${gameCardList[j]}.gif" alt="">
         </div>`
@@ -39,28 +39,29 @@ function scramble() {
 	return Math.random() - 0.5; 
 }
 
-function flipCards(cardState, position) {
+function clickCards(cardState, position) {
     cardType = gameCardList[position];
     if ((cardState == document.querySelector(`.card.back-face.${cardType}.pos${position}`)) && (firstCardFlip == false)) {
-        setTimeout(() => {
-        cardState.classList.remove("back-face");
-        cardState.classList.add("front-face");
-        }, 100)
+        flipCards(cardState);
         firstCardFlip = true;
-        movements++;
         firstCardType = cardType;
         firstCardPosition = position;
     } else if ((cardState == document.querySelector(`.card.back-face.${cardType}.pos${position}`)) && (firstCardFlip == true)){
-        setTimeout(() => {
-            cardState.classList.remove("back-face");
-            cardState.classList.add("front-face");
-            }, 100)
-        movements++;
+        flipCards(cardState);
         secondCardType = cardType;
         secondCardPosition = position;
-        firstCardFlip = false;
         compareCards(firstCardType, secondCardType, firstCardPosition, secondCardPosition);
+        firstCardFlip = false;
     }
+}
+
+function flipCards(cardToFlip) {
+    cardToFlip.classList.add("flip");
+    setTimeout(() => {
+        cardToFlip.classList.remove("back-face");
+        cardToFlip.classList.add("front-face");
+        }, 200)
+    movements++;
 }
 
 function compareCards(firstCard, secondCard, firstPosition, secondPosition) {
@@ -71,6 +72,8 @@ function compareCards(firstCard, secondCard, firstPosition, secondPosition) {
         }
     } else {
         setTimeout(() => {
+            document.querySelector(`.card.front-face.${firstCard}.pos${firstPosition}.flip`).classList.remove("flip");
+            document.querySelector(`.card.front-face.${secondCard}.pos${secondPosition}.flip`).classList.remove("flip");
             document.querySelector(`.card.front-face.${firstCard}.pos${firstPosition}`).classList.remove("front-face");
             document.querySelector(`.card.${firstCard}.pos${firstPosition}`).classList.add("back-face");
             document.querySelector(`.card.front-face.${secondCard}.pos${secondPosition}`).classList.remove("front-face");
@@ -82,5 +85,5 @@ function compareCards(firstCard, secondCard, firstPosition, secondPosition) {
 function finishGame() {
     setTimeout(() => {
     alert(`Você ganhou em ${movements} jogadas!`);
-    }, 500)
+    }, 300)
 }

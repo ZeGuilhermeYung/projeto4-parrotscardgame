@@ -38,20 +38,21 @@ text-transform: uppercase;
     margin: 17px;
     cursor: pointer;
     transition: transform 600ms;
+    transform-style: preserve-3d;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
+.card.back-face.flip {
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+}
 .card.front-face {
-    transform: rotateY(180deg);    
+    transform: rotateY(180deg);
 }
 .card img {
     width: 100px;
     height: 100px;
-}
-.out-of-game {
-    display: none;
 }
 .card.back-face .front-face {
     display: none;
@@ -59,7 +60,6 @@ text-transform: uppercase;
 .card.front-face .back-face {
     display: none;
 }
-
 
 @media (max-width: 614px) {
     .title h1 {
