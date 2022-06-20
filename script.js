@@ -3,7 +3,12 @@ const cardList = ["card1", "card2", "card3", "card4", "card5", "card6", "card7"]
 let gameCardList = [];
 let firstCardFlip = false;
 let movements = 0;
-let countdownFinishGame = 0;
+let countdownFinishGame;
+let seconds = 0;
+let centiseconds = 0;
+let finishSeconds;
+let finishCentiseconds;
+let timerInterval;
 
 checkNumber(manyCards);
 
@@ -18,6 +23,7 @@ function checkNumber(num) {
 }
 
 function startGame (numberOfCards) {
+    timer();
     cardList.sort(scramble);
     for (let i = 0; i < numberOfCards/2; i++) {
         gameCardList.push(cardList[i], cardList[i]);
@@ -82,12 +88,44 @@ function compareCards(firstCard, secondCard, firstPosition, secondPosition) {
 }
 
 function finishGame() {
+    
     setTimeout(() => {
-    alert(`Você ganhou em ${movements} jogadas!`);
+    alert(`Você ganhou em ${movements} jogadas e em ${finishSeconds}${finishCentiseconds}!`);
     askStartNewGame();
     }, 300)
     
 }
+        
+function timer() {
+        document.querySelector(".timer .seconds").innerHTML = seconds;
+        document.querySelector(".timer .seconds").innerHTML = centiseconds;
+        centisecondsInterval = setInterval(incrementTimer, 10);
+}
+
+function incrementTimer() {
+    centiseconds++;
+    if (seconds < 1) {
+        document.querySelector(".timer .seconds").innerHTML = `00.`;
+    }
+    if ((countdownFinishGame == 0) && (movements >= 4)) {
+        finishCentiseconds = document.querySelector(".timer .centiseconds").innerHTML;
+        finishSeconds = document.querySelector(".timer .seconds").innerHTML;
+        clearInterval(timerInterval);
+    } else if (centiseconds < 10) {
+        document.querySelector(".timer .centiseconds").innerHTML = `0${centiseconds}s`;
+    } else if (centiseconds < 100) {
+        document.querySelector(".timer .centiseconds").innerHTML = `${centiseconds}s`;
+    } else if (centiseconds == 100) {
+        centiseconds = 0;
+        seconds++;
+        if (seconds < 10){
+            document.querySelector(".timer .seconds").innerHTML = `0${seconds}.`;
+        } else {
+            document.querySelector(".timer .seconds").innerHTML = `${seconds}.`;
+        }
+    }
+}
+
 function askStartNewGame(){
     question = prompt("Deseja reiniciar a partida?\n(Digite 'sim' ou 'não')");
     if (question === "sim") {
@@ -96,6 +134,8 @@ function askStartNewGame(){
         }
         gameCardList = [];
         movements = 0;
+        seconds = 0;
+        centiseconds = 0;
         manyCards = prompt("Com quantas cartas deseja jogar?\n(Escolha um nº entre 4 a 14)");
         checkNumber(manyCards);
     } else if (question === "não") {
