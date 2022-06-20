@@ -53,19 +53,25 @@ body {
     border-radius: 5px;
     margin: 17px;
     cursor: pointer;
-    transition: transform 600ms;
+    transition: all 400ms;
     transform-style: preserve-3d;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+.card.back-face:hover {
+    box-shadow: 1px 1px 5px gray;
+}
 .card.back-face.flip {
     transform: rotateY(180deg);
     backface-visibility: hidden;
 }
-.card.front-face {
-    transform: rotateY(180deg);
+
+.card.front-face.flip {
+    transform: rotateY(360deg);
+    backface-visibility: hidden;
 }
+
 .card img {
     width: 100px;
     height: 100px;
