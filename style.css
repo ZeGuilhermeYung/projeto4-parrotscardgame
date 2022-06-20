@@ -60,14 +60,18 @@ body {
     justify-content: center;
 }
 .card.back-face:hover {
-    box-shadow: 1px 1px 5px gray;
+    box-shadow: 3px 3px 15px gray;
 }
 .card.back-face.flip {
     transform: rotateY(180deg);
     backface-visibility: hidden;
 }
+.card.front-face {
+    box-shadow: inset 0 0 14px gold, 3px 3px 15px gray;;
+}
 
 .card.front-face.flip {
+    box-shadow: inset 0 0 14px #75B79E;
     transform: rotateY(360deg);
     backface-visibility: hidden;
 }

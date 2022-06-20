@@ -45,18 +45,18 @@ function scramble() {
 }
 
 function clickCards(cardState, position) {
-    cardType = gameCardList[position];
-    if ((cardState == document.querySelector(`.card.back-face.${cardType}.pos${position}`)) && (firstCardFlip == false)) {
+    
+    if ((cardState == document.querySelector(`.card.back-face.pos${position}`)) && (firstCardFlip == false)) {
+        firstCardType = gameCardList[position];
         flipCards(cardState);
-        firstCardFlip = true;
-        firstCardType = cardType;
         firstCardPosition = position;
-    } else if ((cardState == document.querySelector(`.card.back-face.${cardType}.pos${position}`)) && (firstCardFlip == true)){
+        firstCardFlip = true;
+    } else if ((cardState == document.querySelector(`.card.back-face.pos${position}`)) && (firstCardFlip == true)){
+        secondCardType = gameCardList[position];
         flipCards(cardState);
-        secondCardType = cardType;
         secondCardPosition = position;
-        firstCardFlip = false;
         compareCards(firstCardType, secondCardType, firstCardPosition, secondCardPosition);
+        firstCardFlip = false;
     }
 }
 
@@ -71,6 +71,8 @@ function flipCards(cardToFlip) {
 
 function compareCards(firstCard, secondCard, firstPosition, secondPosition) {
     if (firstCard === secondCard) {
+        document.querySelector(`.card.pos${firstPosition}.flip`).classList.remove("flip");
+        document.querySelector(`.card.pos${secondPosition}.flip`).classList.remove("flip");
         countdownFinishGame--;
         if (countdownFinishGame == 0) {
             finishGame();
