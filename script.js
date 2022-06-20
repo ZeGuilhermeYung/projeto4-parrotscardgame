@@ -9,6 +9,7 @@ let centiseconds = 0;
 let finishSeconds;
 let finishCentiseconds;
 let timerInterval;
+const backgroundSound = document.querySelector(".background-sound")
 
 checkNumber(manyCards);
 
@@ -24,6 +25,7 @@ function checkNumber(num) {
 
 function startGame (numberOfCards) {
     timer();
+    backgroundSound.play();
     cardList.sort(scramble);
     for (let i = 0; i < numberOfCards/2; i++) {
         gameCardList.push(cardList[i], cardList[i]);
@@ -55,8 +57,8 @@ function clickCards(cardState, position) {
         secondCardType = gameCardList[position];
         flipCards(cardState);
         secondCardPosition = position;
-        compareCards(firstCardType, secondCardType, firstCardPosition, secondCardPosition);
         firstCardFlip = false;
+        compareCards(firstCardType, secondCardType, firstCardPosition, secondCardPosition);
     }
 }
 
@@ -71,8 +73,10 @@ function flipCards(cardToFlip) {
 
 function compareCards(firstCard, secondCard, firstPosition, secondPosition) {
     if (firstCard === secondCard) {
+        setTimeout(() => {
         document.querySelector(`.card.pos${firstPosition}.flip`).classList.remove("flip");
         document.querySelector(`.card.pos${secondPosition}.flip`).classList.remove("flip");
+        }, 400)
         countdownFinishGame--;
         if (countdownFinishGame == 0) {
             finishGame();

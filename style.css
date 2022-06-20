@@ -67,7 +67,7 @@ body {
     backface-visibility: hidden;
 }
 .card.front-face {
-    box-shadow: inset 0 0 14px gold, 3px 3px 15px gray;;
+    box-shadow: inset 0 0 14px gold, 3px 3px 15px gray;
 }
 
 .card.front-face.flip {
